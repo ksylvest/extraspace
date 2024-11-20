@@ -15,7 +15,9 @@ module ExtraSpace
     #   @return [Integer]
     attr_accessor :web
 
-    # @param uid [String]
+    # @param nsc [Integer]
+    # @param street [Integer]
+    # @param web [Integer]
     def initialize(nsc:, street:, web:)
       @nsc = nsc
       @street = street
@@ -34,7 +36,7 @@ module ExtraSpace
 
     # @param data [Hash]
     #
-    # @return [Address]
+    # @return [Rates]
     def self.parse(data:)
       new(
         nsc: data['nsc'],

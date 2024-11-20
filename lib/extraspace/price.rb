@@ -43,7 +43,7 @@ module ExtraSpace
 
     # @param data [Hash]
     #
-    # @return [Address]
+    # @return [Price]
     def self.parse(data:)
       availability = Availability.parse(data: data['availability'])
       dimensions = Dimensions.parse(data: data['dimensions'])

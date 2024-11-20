@@ -24,6 +24,7 @@ module ExtraSpace
       @prices = prices
     end
 
+    # @return [String]
     def inspect
       props = [
         "address=#{@address.inspect}",

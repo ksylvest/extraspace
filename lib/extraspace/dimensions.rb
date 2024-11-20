@@ -19,7 +19,10 @@ module ExtraSpace
     #   @return [String]
     attr_accessor :display
 
-    # @param uid [String]
+    # @param depth [Integer]
+    # @param width [Integer]
+    # @param sqft [Integer]
+    # @param display [String]
     def initialize(depth:, width:, sqft:, display:)
       @depth = depth
       @width = width
@@ -40,7 +43,7 @@ module ExtraSpace
 
     # @param data [Hash]
     #
-    # @return [Address]
+    # @return [Dimensions]
     def self.parse(data:)
       new(depth: data['depth'], width: data['width'], sqft: data['squareFoot'], display: data['display'])
     end
