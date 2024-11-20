@@ -7,7 +7,7 @@ module ExtraSpace
     #   @return [String]
     attr_accessor :available
 
-    # @param uid [String]
+    # @param available [String]
     def initialize(available:)
       @available = available
     end
@@ -22,7 +22,7 @@ module ExtraSpace
 
     # @param data [Hash]
     #
-    # @return [Address]
+    # @return [Availability]
     def self.parse(data:)
       new(available: data['available'])
     end

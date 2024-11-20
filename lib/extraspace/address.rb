@@ -26,9 +26,8 @@ module ExtraSpace
     # @param line1 [String]
     # @param line2 [String]
     # @param city [String]
-    # @param state_abbreviation [String]
-    # @param state_name [String]
-    # @param postal_code [String]
+    # @param state [String]
+    # @param zip [String]
     def initialize(line1:, line2:, city:, state:, zip:)
       @line1 = line1
       @line2 = line2
@@ -37,6 +36,7 @@ module ExtraSpace
       @zip = zip
     end
 
+    # @return [String]
     def inspect
       props = [
         "line1=#{@line1.inspect}",
