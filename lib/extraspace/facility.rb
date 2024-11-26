@@ -38,11 +38,9 @@ module ExtraSpace
     #
     # @return [Facility]
     def self.fetch(url:)
-      response = HTTP.get(url)
-      document = Nokogiri::HTML(String(response.body))
+      document = Crawler.html(url:)
       data = JSON.parse(document.at('#__NEXT_DATA__').text)
-
-      parse(data: data)
+      parse(data:)
     end
 
     # @param data [Hash]
