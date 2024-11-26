@@ -3,6 +3,8 @@
 module ExtraSpace
   # e.g. https://www.extraspace.com/storage/facilities/us/alabama/auburn/3264/
   class Facility
+    SITEMAP_URL = 'https://www.extraspace.com/facility-sitemap.xml'
+
     # @attribute [rw] address
     #   @return [Address]
     attr_accessor :address
@@ -32,6 +34,11 @@ module ExtraSpace
         "prices=#{@prices.inspect}"
       ]
       "#<#{self.class.name} #{props.join(' ')}>"
+    end
+
+    # @return [Sitemap]
+    def self.sitemap
+      Sitemap.fetch(url: SITEMAP_URL)
     end
 
     # @param url [String]
