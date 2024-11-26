@@ -17,22 +17,26 @@ gem install extrapsace
 ```ruby
 require 'extraspace'
 
-URL = 'https://www.extraspace.com/storage/facilities/us/alabama/auburn/3264/'
-facility = ExtraSpace::Facility.fetch(url: URL)
+sitemap = ExtraSpace::Facility.sitemap
+sitemap.links.each do |link|
+  url = link.loc
 
-puts "Line 1: #{facility.address.line1}"
-puts "Line 2: #{facility.address.line2}"
-puts "City: #{facility.address.city}"
-puts "State: #{facility.address.state}"
-puts "ZIP: #{facility.address.zip}"
-puts "Latitude: #{facility.geocode.latitude}"
-puts "Longitude: #{facility.geocode.longitude}"
-puts
+  facility = ExtraSpace::Facility.fetch(url:)
 
-facility.prices.each do |price|
-  puts "UID: #{price.uid}"
-  puts "Dimensions: #{price.dimensions.display}"
-  puts "Rates: $#{price.rates.street} (street) / $#{price.rates.web} (web)"
+  puts "Line 1: #{facility.address.line1}"
+  puts "Line 2: #{facility.address.line2}"
+  puts "City: #{facility.address.city}"
+  puts "State: #{facility.address.state}"
+  puts "ZIP: #{facility.address.zip}"
+  puts "Latitude: #{facility.geocode.latitude}"
+  puts "Longitude: #{facility.geocode.longitude}"
   puts
+
+  facility.prices.each do |price|
+    puts "UID: #{price.uid}"
+    puts "Dimensions: #{price.dimensions.display}"
+    puts "Rates: $#{price.rates.street} (street) / $#{price.rates.web} (web)"
+    puts
+  end
 end
 ```
