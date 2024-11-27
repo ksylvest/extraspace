@@ -3,9 +3,9 @@
 module ExtraSpace
   # e.g. https://www.extraspace.com/storage/facilities/us/alabama/auburn/3264/
   class Price
-    # @attribute [rw] uid
+    # @attribute [rw] id
     #   @return [String]
-    attr_accessor :uid
+    attr_accessor :id
 
     # @attribute [rw] dimensions
     #   @return [Dimensions]
@@ -15,11 +15,11 @@ module ExtraSpace
     #   @return [Rates]
     attr_accessor :rates
 
-    # @param uid [String]
+    # @param id [String]
     # @param dimensions [Dimensions]
     # @param rates [Rates]
-    def initialize(uid:, dimensions:, rates:)
-      @uid = uid
+    def initialize(id:, dimensions:, rates:)
+      @id = id
       @dimensions = dimensions
       @rates = rates
     end
@@ -27,7 +27,7 @@ module ExtraSpace
     # @return [String]
     def inspect
       props = [
-        "uid=#{@uid.inspect}",
+        "id=#{@id.inspect}",
         "dimensions=#{@dimensions.inspect}",
         "rates=#{@rates.inspect}"
       ]
@@ -41,7 +41,7 @@ module ExtraSpace
       dimensions = Dimensions.parse(data: data['dimensions'])
       rates = Rates.parse(data: data['rates'])
       new(
-        uid: data['uid'],
+        id: data['uid'],
         dimensions: dimensions,
         rates: rates
       )
