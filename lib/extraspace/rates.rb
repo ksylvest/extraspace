@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ExtraSpace
-  # e.g. https://www.extraspace.com/storage/facilities/us/alabama/auburn/3264/
+  # The rates (street + web) for a facility
   class Rates
     # @attribute [rw] street
     #   @return [Integer]

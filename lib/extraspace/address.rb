@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ExtraSpace
-  # e.g. https://www.extraspace.com/storage/facilities/us/alabama/auburn/3264/
+  # The address (street + city + state + zip) of a facility.
   class Address
     # @attribute [rw] street
     #   @return [String]

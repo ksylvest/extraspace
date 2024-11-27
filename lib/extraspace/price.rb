@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ExtraSpace
-  # e.g. https://www.extraspace.com/storage/facilities/us/alabama/auburn/3264/
+  # The price (id + dimensions + rate) for a facility
   class Price
     # @attribute [rw] id
     #   @return [String]

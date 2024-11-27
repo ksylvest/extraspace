@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ExtraSpace
+  # A facility (address + geocode + prices) on extraspace.com.
+  #
   # e.g. https://www.extraspace.com/storage/facilities/us/alabama/auburn/3264/
   class Facility
     SITEMAP_URL = 'https://www.extraspace.com/facility-sitemap.xml'
