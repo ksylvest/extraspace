@@ -97,7 +97,7 @@ module ExtraSpace
       "#<#{self.class.name} #{props.join(' ')}>"
     end
 
-    # @return [String] e.g. "123 Main St, Springfield, IL 62701"
+    # @return [String]
     def text
       "#{@id} | #{@name} | #{@address.text} | #{@geocode.text}"
     end
