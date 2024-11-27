@@ -3,10 +3,6 @@
 module ExtraSpace
   # e.g. https://www.extraspace.com/storage/facilities/us/alabama/auburn/3264/
   class Rates
-    # @attribute [rw] nsc
-    #   @return [Integer]
-    attr_accessor :nsc
-
     # @attribute [rw] street
     #   @return [Integer]
     attr_accessor :street
@@ -15,11 +11,9 @@ module ExtraSpace
     #   @return [Integer]
     attr_accessor :web
 
-    # @param nsc [Integer]
     # @param street [Integer]
     # @param web [Integer]
-    def initialize(nsc:, street:, web:)
-      @nsc = nsc
+    def initialize(street:, web:)
       @street = street
       @web = web
     end
@@ -27,7 +21,6 @@ module ExtraSpace
     # @return [String]
     def inspect
       props = [
-        "nsc=#{@nsc.inspect}",
         "street=#{@street.inspect}",
         "web=#{@web.inspect}"
       ]
@@ -39,7 +32,6 @@ module ExtraSpace
     # @return [Rates]
     def self.parse(data:)
       new(
-        nsc: data['nsc'],
         street: data['street'],
         web: data['web']
       )
