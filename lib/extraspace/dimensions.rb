@@ -15,19 +15,13 @@ module ExtraSpace
     #   @return [Integer]
     attr_accessor :sqft
 
-    # @attribute [rw] display
-    #   @return [String]
-    attr_accessor :display
-
     # @param depth [Integer]
     # @param width [Integer]
     # @param sqft [Integer]
-    # @param display [String]
-    def initialize(depth:, width:, sqft:, display:)
+    def initialize(depth:, width:, sqft:)
       @depth = depth
       @width = width
       @sqft = sqft
-      @display = display
     end
 
     # @return [String]
@@ -35,8 +29,7 @@ module ExtraSpace
       props = [
         "depth=#{@depth.inspect}",
         "width=#{@width.inspect}",
-        "sqft=#{@sqft.inspect}",
-        "display=#{@display.inspect}"
+        "sqft=#{@sqft.inspect}"
       ]
       "#<#{self.class.name} #{props.join(' ')}>"
     end
@@ -45,7 +38,7 @@ module ExtraSpace
     #
     # @return [Dimensions]
     def self.parse(data:)
-      new(depth: data['depth'], width: data['width'], sqft: data['squareFoot'], display: data['display'])
+      new(depth: data['depth'], width: data['width'], sqft: data['squareFoot'])
     end
   end
 end
