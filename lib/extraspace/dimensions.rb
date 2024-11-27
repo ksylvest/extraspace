@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ExtraSpace
-  # e.g. https://www.extraspace.com/storage/facilities/us/alabama/auburn/3264/
+  # The dimensions (width + depth + sqft) of a price.
   class Dimensions
     # @attribute [rw] depth
     #   @return [Integer]

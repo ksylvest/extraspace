@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ExtraSpace
-  # e.g. https://www.extraspace.com/storage/facilities/us/alabama/auburn/3264/
+  # The geocode (latitude + longitude) of a facility.
   class Geocode
     # @attribute [rw] latitude
     #   @return [Float]

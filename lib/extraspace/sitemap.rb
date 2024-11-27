@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ExtraSpace
+  # A sitemap on extraspace.com.
+  #
   # e.g. https://www.extraspace.com/facility-sitemap.xml
   class Sitemap
     # @attribute [rw] links
