@@ -23,8 +23,7 @@ sitemap.links.each do |link|
 
   facility = ExtraSpace::Facility.fetch(url:)
 
-  puts "Line 1: #{facility.address.line1}"
-  puts "Line 2: #{facility.address.line2}"
+  puts "Street: #{facility.address.street}"
   puts "City: #{facility.address.city}"
   puts "State: #{facility.address.state}"
   puts "ZIP: #{facility.address.zip}"
