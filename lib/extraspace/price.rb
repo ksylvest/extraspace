@@ -7,10 +7,6 @@ module ExtraSpace
     #   @return [String]
     attr_accessor :uid
 
-    # @attribute [rw] availability
-    #   @return [Availability]
-    attr_accessor :availability
-
     # @attribute [rw] dimensions
     #   @return [Dimensions]
     attr_accessor :dimensions
@@ -20,12 +16,10 @@ module ExtraSpace
     attr_accessor :rates
 
     # @param uid [String]
-    # @param availability [Availability]
     # @param dimensions [Dimensions]
     # @param rates [Rates]
-    def initialize(uid:, availability:, dimensions:, rates:)
+    def initialize(uid:, dimensions:, rates:)
       @uid = uid
-      @availability = availability
       @dimensions = dimensions
       @rates = rates
     end
@@ -34,7 +28,6 @@ module ExtraSpace
     def inspect
       props = [
         "uid=#{@uid.inspect}",
-        "availability=#{@availability.inspect}",
         "dimensions=#{@dimensions.inspect}",
         "rates=#{@rates.inspect}"
       ]
@@ -45,12 +38,10 @@ module ExtraSpace
     #
     # @return [Price]
     def self.parse(data:)
-      availability = Availability.parse(data: data['availability'])
       dimensions = Dimensions.parse(data: data['dimensions'])
       rates = Rates.parse(data: data['rates'])
       new(
         uid: data['uid'],
-        availability: availability,
         dimensions: dimensions,
         rates: rates
       )
