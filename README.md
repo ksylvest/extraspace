@@ -12,6 +12,17 @@
 gem install extrapsace
 ```
 
+## Configuration
+
+```ruby
+require 'extraspace'
+
+ExtraSpace.configure do |config|
+  config.user_agent = '../..' # ENV['EXTRASPACE_USER_AGENT']
+  config.timeout = 30 # ENV['EXTRASPACE_TIMEOUT']
+end
+```
+
 ## Usage
 
 ```ruby
