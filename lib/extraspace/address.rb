@@ -3,13 +3,9 @@
 module ExtraSpace
   # e.g. https://www.extraspace.com/storage/facilities/us/alabama/auburn/3264/
   class Address
-    # @attribute [rw] line1
+    # @attribute [rw] street
     #   @return [String]
-    attr_accessor :line1
-
-    # @attribute [rw] line2
-    #   @return [String]
-    attr_accessor :line2
+    attr_accessor :street
 
     # @attribute [rw] city
     #   @return [String]
@@ -23,14 +19,12 @@ module ExtraSpace
     #   @return [String]
     attr_accessor :zip
 
-    # @param line1 [String]
-    # @param line2 [String]
+    # @param street [String]
     # @param city [String]
     # @param state [String]
     # @param zip [String]
-    def initialize(line1:, line2:, city:, state:, zip:)
-      @line1 = line1
-      @line2 = line2
+    def initialize(street:, city:, state:, zip:)
+      @street = street
       @city = city
       @state = state
       @zip = zip
@@ -39,8 +33,7 @@ module ExtraSpace
     # @return [String]
     def inspect
       props = [
-        "line1=#{@line1.inspect}",
-        "line2=#{@line2.inspect}",
+        "street=#{@street.inspect}",
         "city=#{@city.inspect}",
         "state=#{@state.inspect}",
         "zip=#{@zip.inspect}"
@@ -52,9 +45,10 @@ module ExtraSpace
     #
     # @return [Address]
     def self.parse(data:)
+      lines = %w[line1 line2 line3 line4].map { |key| data[key] }
+
       new(
-        line1: data['line1'],
-        line2: data['line2'],
+        street: lines.compact.reject(&:empty?).join(' '),
         city: data['city'],
         state: data['stateName'],
         zip: data['postalCode']
