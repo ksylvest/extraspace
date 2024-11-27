@@ -34,6 +34,11 @@ module ExtraSpace
       "#<#{self.class.name} #{props.join(' ')}>"
     end
 
+    # @return [String] e.g. "123 | 5' × 5' (25 sqft) | $100 (street) / $90 (web)"
+    def text
+      "#{@id} | #{@dimensions.text} | #{@rates.text}"
+    end
+
     # @param data [Hash]
     #
     # @return [Price]

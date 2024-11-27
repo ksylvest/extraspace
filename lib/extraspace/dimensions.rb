@@ -34,6 +34,11 @@ module ExtraSpace
       "#<#{self.class.name} #{props.join(' ')}>"
     end
 
+    # @return [String] e.g. "10' × 10' (100 sqft)"
+    def text
+      "#{format('%g', @width)}' × #{format('%g', @depth)}' (#{@sqft} sqft)"
+    end
+
     # @param data [Hash]
     #
     # @return [Dimensions]

@@ -8,7 +8,7 @@ module ExtraSpace
       # @param url [String]
       # @param response [HTTP::Response]
       def initialize(url:, response:)
-        super("url=#{url} status=#{response.status.inspect} body=#{response.body.inspect}")
+        super("url=#{url} status=#{response.status.inspect} body=#{String(response.body).inspect}")
       end
     end
 

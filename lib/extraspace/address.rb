@@ -41,6 +41,11 @@ module ExtraSpace
       "#<#{self.class.name} #{props.join(' ')}>"
     end
 
+    # @return [String]
+    def text
+      "#{street}, #{city}, #{state} #{zip}"
+    end
+
     # @param data [Hash]
     #
     # @return [Address]

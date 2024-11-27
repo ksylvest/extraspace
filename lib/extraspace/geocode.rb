@@ -27,6 +27,11 @@ module ExtraSpace
       "#<#{self.class.name} #{props.join(' ')}>"
     end
 
+    # @return [String]
+    def text
+      "#{@latitude},#{@longitude}"
+    end
+
     # @param data [Hash]
     #
     # @return [Geocode]
