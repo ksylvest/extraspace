@@ -30,7 +30,7 @@ module ExtraSpace
     # @return [HTTP::Response]
     def fetch(url:)
       response = HTTP.get(url)
-      raise FetchError(url:, response: response.flush) unless response.status.ok?
+      raise FetchError.new(url:, response: response.flush) unless response.status.ok?
 
       response
     end
