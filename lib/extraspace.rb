@@ -6,6 +6,7 @@ require 'zeitwerk'
 
 loader = Zeitwerk::Loader.for_gem
 loader.inflector.inflect 'extraspace' => 'ExtraSpace'
+loader.inflector.inflect 'cli' => 'CLI'
 loader.setup
 
 module ExtraSpace

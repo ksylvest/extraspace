@@ -7,6 +7,14 @@ module ExtraSpace
   class Facility
     SITEMAP_URL = 'https://www.extraspace.com/facility-sitemap.xml'
 
+    # @attribute [rw] id
+    #   @return [String]
+    attr_accessor :id
+
+    # @attribute [rw] name
+    #   @return [String]
+    attr_accessor :name
+
     # @attribute [rw] address
     #   @return [Address]
     attr_accessor :address
@@ -18,25 +26,6 @@ module ExtraSpace
     # @attribute [rw] prices
     #   @return [Array<Price>]
     attr_accessor :prices
-
-    # @param address [Address]
-    # @param geocode [Geocode]
-    # @param prices [Array<Price>]
-    def initialize(address:, geocode:, prices:)
-      @address = address
-      @geocode = geocode
-      @prices = prices
-    end
-
-    # @return [String]
-    def inspect
-      props = [
-        "address=#{@address.inspect}",
-        "geocode=#{@geocode.inspect}",
-        "prices=#{@prices.inspect}"
-      ]
-      "#<#{self.class.name} #{props.join(' ')}>"
-    end
 
     # @return [Sitemap]
     def self.sitemap
@@ -57,14 +46,60 @@ module ExtraSpace
     # @return [Facility]
     def self.parse(data:)
       page_data = data.dig('props', 'pageProps', 'pageData', 'data')
-      facility_data = page_data.dig('facilityData', 'data')
+      store_data = page_data.dig('facilityData', 'data', 'store')
       unit_classes = page_data.dig('unitClasses', 'data', 'unitClasses')
+      id = store_data['number']
+      name = store_data['name']
 
-      address = Address.parse(data: facility_data['store']['address'])
-      geocode = Geocode.parse(data: facility_data['store']['geocode'])
+      address = Address.parse(data: store_data['address'])
+      geocode = Geocode.parse(data: store_data['geocode'])
       prices = unit_classes.map { |price_data| Price.parse(data: price_data) }
 
-      new(address:, geocode:, prices:)
+      new(id:, name:, address:, geocode:, prices:)
+    end
+
+    def self.crawl
+      sitemap.links.each do |link|
+        url = link.loc
+
+        facility = fetch(url:)
+        puts facility.text
+
+        facility.prices.each do |price|
+          puts price.text
+        end
+
+        puts
+      end
+    end
+
+    # @param id [String]
+    # @param name [String]
+    # @param address [Address]
+    # @param geocode [Geocode]
+    # @param prices [Array<Price>]
+    def initialize(id:, name:, address:, geocode:, prices:)
+      @id = id
+      @name = name
+      @address = address
+      @geocode = geocode
+      @prices = prices
+    end
+
+    # @return [String]
+    def inspect
+      props = [
+        "id=#{@id.inspect}",
+        "address=#{@address.inspect}",
+        "geocode=#{@geocode.inspect}",
+        "prices=#{@prices.inspect}"
+      ]
+      "#<#{self.class.name} #{props.join(' ')}>"
+    end
+
+    # @return [String] e.g. "123 Main St, Springfield, IL 62701"
+    def text
+      "#{@id} | #{@name} | #{@address.text} | #{@geocode.text}"
     end
   end
 end

@@ -20,23 +20,20 @@ require 'extraspace'
 sitemap = ExtraSpace::Facility.sitemap
 sitemap.links.each do |link|
   url = link.loc
-
   facility = ExtraSpace::Facility.fetch(url:)
 
-  puts "Street: #{facility.address.street}"
-  puts "City: #{facility.address.city}"
-  puts "State: #{facility.address.state}"
-  puts "ZIP: #{facility.address.zip}"
-  puts "Latitude: #{facility.geocode.latitude}"
-  puts "Longitude: #{facility.geocode.longitude}"
-  puts
+  puts facility.text
 
   facility.prices.each do |price|
-    puts "ID: #{price.id}"
-    puts "Width: #{price.dimensions.width}"
-    puts "Depth: #{price.dimensions.depth}"
-    puts "Rates: $#{price.rates.street} (street) / $#{price.rates.web} (web)"
-    puts
+    puts price.text
   end
+
+  puts
 end
+```
+
+## CLI
+
+```bash
+extraspace crawl
 ```

@@ -27,6 +27,11 @@ module ExtraSpace
       "#<#{self.class.name} #{props.join(' ')}>"
     end
 
+    # @return [String] e.g. "$80 (street) | $60 (web)"
+    def text
+      "$#{@street} (street) | $#{@web} (web)"
+    end
+
     # @param data [Hash]
     #
     # @return [Rates]
