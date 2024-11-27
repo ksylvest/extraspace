@@ -33,7 +33,8 @@ sitemap.links.each do |link|
 
   facility.prices.each do |price|
     puts "UID: #{price.uid}"
-    puts "Dimensions: #{price.dimensions.display}"
+    puts "Width: #{price.dimensions.width}"
+    puts "Depth: #{price.dimensions.depth}"
     puts "Rates: $#{price.rates.street} (street) / $#{price.rates.web} (web)"
     puts
   end
