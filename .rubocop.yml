@@ -12,3 +12,6 @@ RSpec/MultipleExpectations:
 RSpec/SpecFilePathFormat:
   CustomTransform:
     ExtraSpace: extraspace
+
+Metrics/ParameterLists:
+  Enabled: false
