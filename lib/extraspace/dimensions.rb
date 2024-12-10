@@ -3,25 +3,34 @@
 module ExtraSpace
   # The dimensions (width + depth + sqft) of a price.
   class Dimensions
+    DEFAULT_HEIGHT = 8.0 # feet
+
     # @attribute [rw] depth
-    #   @return [Integer]
+    #   @return [Float]
     attr_accessor :depth
 
     # @attribute [rw] width
-    #  @return [Integer]
+    #  @return [Float]
     attr_accessor :width
 
-    # @attribute [rw] sqft
-    #   @return [Integer]
-    attr_accessor :sqft
+    # @attribute [rw] height
+    #   @return [Float]
+    attr_accessor :height
 
-    # @param depth [Integer]
-    # @param width [Integer]
-    # @param sqft [Integer]
-    def initialize(depth:, width:, sqft:)
+    # @param data [Hash]
+    #
+    # @return [Dimensions]
+    def self.parse(data:)
+      new(depth: data['depth'], width: data['width'], height: DEFAULT_HEIGHT)
+    end
+
+    # @param depth [Float]
+    # @param width [Float]
+    # @param height [Float]
+    def initialize(depth:, width:, height: DEFAULT_HEIGHT)
       @depth = depth
       @width = width
-      @sqft = sqft
+      @height = height
     end
 
     # @return [String]
@@ -29,21 +38,24 @@ module ExtraSpace
       props = [
         "depth=#{@depth.inspect}",
         "width=#{@width.inspect}",
-        "sqft=#{@sqft.inspect}"
+        "height=#{@height.inspect}"
       ]
       "#<#{self.class.name} #{props.join(' ')}>"
     end
 
-    # @return [String] e.g. "10' × 10' (100 sqft)"
-    def text
-      "#{format('%g', @width)}' × #{format('%g', @depth)}' (#{@sqft} sqft)"
+    # @return [Integer]
+    def sqft
+      Integer(@width * @depth)
     end
 
-    # @param data [Hash]
-    #
-    # @return [Dimensions]
-    def self.parse(data:)
-      new(depth: data['depth'], width: data['width'], sqft: data['squareFoot'])
+    # @return [Integer]
+    def cuft
+      Integer(@width * @depth * @height)
+    end
+
+    # @return [String] e.g. "10' × 10' (100 sqft)"
+    def text
+      "#{format('%g', @width)}' × #{format('%g', @depth)}' (#{sqft} sqft)"
     end
   end
 end

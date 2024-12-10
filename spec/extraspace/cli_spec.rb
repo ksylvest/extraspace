@@ -13,10 +13,10 @@ RSpec.describe ExtraSpace::CLI do
     end
 
     context 'with a crawl command' do
-      it 'proxies ExtraSpace::Facility.crawl' do
-        allow(ExtraSpace::Facility).to receive(:crawl)
+      it 'proxies ExtraSpace::Crawl.crawl' do
+        allow(ExtraSpace::Crawl).to receive(:run)
         expect { cli.parse(%w[crawl]) }.to raise_error(SystemExit)
-        expect(ExtraSpace::Facility).to have_received(:crawl)
+        expect(ExtraSpace::Crawl).to have_received(:run)
       end
     end
 
