@@ -5,15 +5,30 @@ module ExtraSpace
   #
   # e.g. https://www.extraspace.com/storage/facilities/us/alabama/auburn/3264/
   class Facility
+    DEFAULT_EMAIL = 'info@extraspace.com'
+    DEFAULT_PHONE = '1-855-518-1443'
+
     SITEMAP_URL = 'https://www.extraspace.com/facility-sitemap.xml'
 
     # @attribute [rw] id
     #   @return [String]
     attr_accessor :id
 
+    # @attribute [rw] url
+    #   @return [String]
+    attr_accessor :url
+
     # @attribute [rw] name
     #   @return [String]
     attr_accessor :name
+
+    # @attribute [rw] phone
+    #   @return [String]
+    attr_accessor :phone
+
+    # @attribute [rw] email
+    #   @return [String]
+    attr_accessor :email
 
     # @attribute [rw] address
     #   @return [Address]
@@ -37,14 +52,15 @@ module ExtraSpace
     # @return [Facility]
     def self.fetch(url:)
       document = Crawler.html(url:)
-      data = JSON.parse(document.at('#__NEXT_DATA__').text)
-      parse(data:)
+      parse(url:, document:)
     end
 
-    # @param data [Hash]
+    # @param url [String]
+    # @param document [Nokogiri::HTML::Document]
     #
     # @return [Facility]
-    def self.parse(data:)
+    def self.parse(url:, document:)
+      data = parse_next_data(document: document)
       page_data = data.dig('props', 'pageProps', 'pageData', 'data')
       store_data = page_data.dig('facilityData', 'data', 'store')
       unit_classes = page_data.dig('unitClasses', 'data', 'unitClasses')
@@ -55,7 +71,16 @@ module ExtraSpace
       geocode = Geocode.parse(data: store_data['geocode'])
       prices = unit_classes.map { |price_data| Price.parse(data: price_data) }
 
-      new(id:, name:, address:, geocode:, prices:)
+      new(id:, url:, name:, address:, geocode:, prices:)
+    end
+
+    # @param document [Nokogiri::HTML::Document]
+    #
+    # @raise [ParseError]
+    #
+    # @return [Hash]
+    def self.parse_next_data(document:)
+      JSON.parse(document.at('#__NEXT_DATA__').text)
     end
 
     def self.crawl
@@ -74,15 +99,21 @@ module ExtraSpace
     end
 
     # @param id [String]
+    # @param url [String]
     # @param name [String]
     # @param address [Address]
     # @param geocode [Geocode]
+    # @param phone [String]
+    # @param email [String]
     # @param prices [Array<Price>]
-    def initialize(id:, name:, address:, geocode:, prices:)
+    def initialize(id:, url:, name:, address:, geocode:, phone: DEFAULT_PHONE, email: DEFAULT_EMAIL, prices: [])
       @id = id
+      @url = url
       @name = name
       @address = address
       @geocode = geocode
+      @phone = phone
+      @email = email
       @prices = prices
     end
 
@@ -90,8 +121,11 @@ module ExtraSpace
     def inspect
       props = [
         "id=#{@id.inspect}",
+        "url=#{@url.inspect}",
         "address=#{@address.inspect}",
         "geocode=#{@geocode.inspect}",
+        "phone=#{@phone.inspect}",
+        "email=#{@email.inspect}",
         "prices=#{@prices.inspect}"
       ]
       "#<#{self.class.name} #{props.join(' ')}>"
@@ -99,7 +133,7 @@ module ExtraSpace
 
     # @return [String]
     def text
-      "#{@id} | #{@name} | #{@address.text} | #{@geocode.text}"
+      "#{@id} | #{@name} | #{@phone} | #{@email} | #{@address.text} | #{@geocode.text}"
     end
   end
 end
