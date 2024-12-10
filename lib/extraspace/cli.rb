@@ -31,7 +31,7 @@ module ExtraSpace
     private
 
     def crawl
-      ExtraSpace::Facility.crawl
+      Crawl.run
       exit(Code::OK)
     end
 

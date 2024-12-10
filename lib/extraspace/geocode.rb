@@ -11,6 +11,16 @@ module ExtraSpace
     #   @return [Float]
     attr_accessor :longitude
 
+    # @param data [Hash]
+    #
+    # @return [Geocode]
+    def self.parse(data:)
+      new(
+        latitude: data['latitude'],
+        longitude: data['longitude']
+      )
+    end
+
     # @param latitude [Float]
     # @param longitude [Float]
     def initialize(latitude:, longitude:)
@@ -30,16 +40,6 @@ module ExtraSpace
     # @return [String]
     def text
       "#{@latitude},#{@longitude}"
-    end
-
-    # @param data [Hash]
-    #
-    # @return [Geocode]
-    def self.parse(data:)
-      new(
-        latitude: data['latitude'],
-        longitude: data['longitude']
-      )
     end
   end
 end

@@ -19,6 +19,20 @@ module ExtraSpace
     #   @return [String]
     attr_accessor :zip
 
+    # @param data [Hash]
+    #
+    # @return [Address]
+    def self.parse(data:)
+      lines = %w[line1 line2 line3 line4].map { |key| data[key] }
+
+      new(
+        street: lines.compact.reject(&:empty?).join(' '),
+        city: data['city'],
+        state: data['stateName'],
+        zip: data['postalCode']
+      )
+    end
+
     # @param street [String]
     # @param city [String]
     # @param state [String]
@@ -44,20 +58,6 @@ module ExtraSpace
     # @return [String]
     def text
       "#{street}, #{city}, #{state} #{zip}"
-    end
-
-    # @param data [Hash]
-    #
-    # @return [Address]
-    def self.parse(data:)
-      lines = %w[line1 line2 line3 line4].map { |key| data[key] }
-
-      new(
-        street: lines.compact.reject(&:empty?).join(' '),
-        city: data['city'],
-        state: data['stateName'],
-        zip: data['postalCode']
-      )
     end
   end
 end

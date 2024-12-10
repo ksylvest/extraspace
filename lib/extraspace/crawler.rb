@@ -33,9 +33,11 @@ module ExtraSpace
       @connection ||= begin
         config = ExtraSpace.config
 
-        connection = HTTP.persistent(HOST)
+        connection = HTTP.use(:auto_deflate).use(:auto_inflate).persistent(HOST)
         connection = connection.headers('User-Agent' => config.user_agent) if config.user_agent
         connection = connection.timeout(config.timeout) if config.timeout
+        connection = connection.via(*config.via) if config.proxy?
+
         connection
       end
     end

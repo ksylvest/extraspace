@@ -11,6 +11,16 @@ module ExtraSpace
     #   @return [Integer]
     attr_accessor :web
 
+    # @param data [Hash]
+    #
+    # @return [Rates]
+    def self.parse(data:)
+      new(
+        street: data['street'],
+        web: data['web']
+      )
+    end
+
     # @param street [Integer]
     # @param web [Integer]
     def initialize(street:, web:)
@@ -30,16 +40,6 @@ module ExtraSpace
     # @return [String] e.g. "$80 (street) | $60 (web)"
     def text
       "$#{@street} (street) | $#{@web} (web)"
-    end
-
-    # @param data [Hash]
-    #
-    # @return [Rates]
-    def self.parse(data:)
-      new(
-        street: data['street'],
-        web: data['web']
-      )
     end
   end
 end
