@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    extraspace (1.0.0)
+    extraspace (1.0.1)
       http
       json
       nokogiri
