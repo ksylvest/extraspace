@@ -52,5 +52,5 @@ extraspace crawl
 ```
 
 ```bash
-extrapsace crawl "https://www.extraspace.com/storage/facilities/us/california/los_angeles/900113/"
+extraspace crawl "https://www.extraspace.com/storage/facilities/us/california/los_angeles/900113/"
 ```
