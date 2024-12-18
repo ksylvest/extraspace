@@ -5,15 +5,6 @@ module ExtraSpace
   class Crawler
     HOST = 'https://www.extraspace.com'
 
-    # Raised for unexpected HTTP responses.
-    class FetchError < StandardError
-      # @param url [String]
-      # @param response [HTTP::Response]
-      def initialize(url:, response:)
-        super("url=#{url} status=#{response.status.inspect} body=#{String(response.body).inspect}")
-      end
-    end
-
     # @param url [String]
     # @raise [FetchError]
     # @return [Nokogiri::HTML::Document]
