@@ -15,7 +15,7 @@ module ExtraSpace
     # @param lastmod [String]
     def initialize(loc:, lastmod:)
       @loc = loc
-      @lastmod = Time.parse(lastmod)
+      @lastmod = Time.parse(lastmod) if lastmod
     end
 
     # @return [String]
