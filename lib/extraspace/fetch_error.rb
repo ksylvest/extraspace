@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ExrtaSpace
+module ExtraSpace
   # Raised for unexpected HTTP responses.
   class FetchError < StandardError
     # @param url [String]
