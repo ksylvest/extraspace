@@ -92,6 +92,7 @@ module ExtraSpace
       unit_classes = data.dig('unitClasses', 'data', 'unitClasses')
 
       unit_classes
+        .reject { |price_data| price_data.dig('availability', 'available')&.zero? }
         .map { |price_data| Price.parse(data: price_data) }
     end
 
