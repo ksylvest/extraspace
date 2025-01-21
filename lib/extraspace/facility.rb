@@ -63,15 +63,36 @@ module ExtraSpace
       data = parse_next_data(document: document)
       page_data = data.dig('props', 'pageProps', 'pageData', 'data')
       store_data = page_data.dig('facilityData', 'data', 'store')
-      unit_classes = page_data.dig('unitClasses', 'data', 'unitClasses')
       id = store_data['number']
       name = store_data['name']
 
-      address = Address.parse(data: store_data['address'])
-      geocode = Geocode.parse(data: store_data['geocode'])
-      prices = unit_classes.map { |price_data| Price.parse(data: price_data) }
+      address = parse_address(data: store_data)
+      geocode = parse_geocode(data: store_data)
+      prices = parse_prices(data: page_data)
 
       new(id:, url:, name:, address:, geocode:, prices:)
+    end
+
+    # @param data [Hash]
+    # @return [Address]
+    def self.parse_address(data:)
+      Address.parse(data: data['address'])
+    end
+
+    # @param data [Hash]
+    # @return [Geocode]
+    def self.parse_geocode(data:)
+      Geocode.parse(data: data['geocode'])
+    end
+
+    # @param entries [Array<Hash>]
+    #
+    # @return [Array<Price>]
+    def self.parse_prices(data:)
+      unit_classes = data.dig('unitClasses', 'data', 'unitClasses')
+
+      unit_classes
+        .map { |price_data| Price.parse(data: price_data) }
     end
 
     # @param document [Nokogiri::HTML::Document]
